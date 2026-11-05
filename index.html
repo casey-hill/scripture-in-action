@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (() => {
+        const param = new URLSearchParams(window.location.search).get("scoutTheme");
+        const theme =
+          param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A quiet space for Scripture, wisdom, and everyday practice. Milestone A preview." />
+    <meta name="theme-color" content="#b11f4b" />
+    <title>Scripture in Action</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Scripture in Action needs JavaScript enabled to open its app screens.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
