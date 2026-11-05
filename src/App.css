@@ -3,10 +3,10 @@
 .brand { display: flex; align-items: center; gap: 12px; color: var(--cp-text); text-decoration: none; line-height: 1.1; font-weight: 650; font-size: 1.25rem; }
 .brand svg { width: 44px; height: 44px; stroke: var(--cp-accent); stroke-width: 2; }
 .brand-sub { display: block; font-size: .9rem; font-weight: 400; margin-top: 4px; color: var(--cp-text-muted); }
-nav { display: flex; gap: 8px; margin-left: auto; }
-nav a { min-height: 48px; padding: 10px 20px; border-radius: .625rem; color: var(--cp-text-muted); text-decoration: none; font-weight: 600; }
-nav a[aria-current="page"] { color: var(--cp-accent); background: var(--cp-accent-soft); }
-nav a:hover, .theme-toggle:hover { background: var(--cp-highlight); }
+.site-header nav { display: flex; gap: 8px; margin-left: auto; }
+.site-header nav a { min-height: 48px; padding: 10px 20px; border-radius: .625rem; color: var(--cp-text-muted); text-decoration: none; font-weight: 600; }
+.site-header nav a[aria-current="page"] { color: var(--cp-accent); background: var(--cp-accent-soft); }
+.site-header nav a:hover, .theme-toggle:hover { background: var(--cp-highlight); }
 .theme-toggle { min-height: 48px; padding: 8px 16px; color: var(--cp-text); background: var(--cp-surface); border: 1px solid var(--cp-border-strong); border-radius: .625rem; }
 .status-bar { display: flex; align-items: center; gap: 12px; padding: 20px 0; font-size: .875rem; color: var(--cp-text-muted); }
 .badge { display: inline-block; padding: 4px 12px; background: var(--cp-accent-soft); color: var(--cp-accent); border-radius: .625rem; font-size: .8rem; font-weight: 650; }
@@ -26,17 +26,32 @@ nav a:hover, .theme-toggle:hover { background: var(--cp-highlight); }
 .caption { font-size: .8rem; margin: 12px 0 0; }
 .two-column { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; margin-top: 24px; }
 .card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; padding: 32px; }
-.days { display: flex; gap: 8px; padding: 0; margin: 24px 0 0; list-style: none; justify-content: space-between; }
-.days li { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.days span { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--cp-border-strong); border-radius: 50%; color: var(--cp-text-muted); }
-.days small { font-size: .65rem; color: var(--cp-text-muted); }
+.lesson-outline { list-style: none; padding: 0; margin: 24px 0 0; }
+.lesson-outline a { display: flex; gap: 16px; align-items: center; min-height: 64px; padding: 16px 0; color: var(--cp-text); text-decoration: none; border-top: 1px solid var(--cp-border); }
+.lesson-outline a:hover { background: var(--cp-highlight); }
+.lesson-day { flex-shrink: 0; color: var(--cp-accent); font-weight: 600; }
+.lesson-outline strong, .lesson-outline small { display: block; }
+.lesson-outline small { color: var(--cp-text-muted); }
+.lesson-outline a > span:last-child { margin-left: auto; }
+.lesson-section { max-width: 880px; margin-top: 24px; }
+.lesson-section h3 { font-size: 1.125rem; line-height: 1.5; margin: 24px 0 12px; }
+.scenario-choices { border: 0; padding: 0; margin: 24px 0 0; min-width: 0; }
+.scenario-choices legend { padding: 0; font-weight: 650; }
+.scenario-choices > .caption { margin: 8px 0 16px; }
+.scenario-choice { display: flex; align-items: flex-start; gap: 12px; min-height: 48px; padding: 16px; margin-top: 12px; border: 1px solid var(--cp-border-strong); border-radius: .625rem; cursor: pointer; }
+.scenario-choice:hover { background: var(--cp-surface-soft); }
+.scenario-choice:has(input:checked) { border-color: var(--cp-accent); background: var(--cp-accent-soft); }
+.scenario-choice input { flex-shrink: 0; width: 20px; height: 20px; margin: 4px 0 0; accent-color: var(--cp-accent); }
+.scenario-choice span { min-width: 0; }
+.feedback h3 { margin-top: 0; }
+.passage { border-top: 1px solid var(--cp-border); margin-top: 24px; }
+.reading-links { display: flex; align-items: flex-start; flex-direction: column; }
+.reading-links .text-link { flex-wrap: wrap; gap: 4px 12px; padding-block: 8px; }
+.reading-links .caption { margin: 0; }
+.lesson-navigation { display: flex; flex-wrap: wrap; gap: 16px; max-width: 880px; margin-top: 24px; }
 .text-link { display: inline-flex; align-items: center; min-height: 48px; gap: 12px; font-weight: 600; }
 .spacious { max-width: 880px; padding: 40px; }
 .spacious > .badge { margin-bottom: 24px; }
-.steps { padding-left: 24px; margin: 32px 0; }
-.steps li { padding: 8px 0 8px 12px; }
-.steps strong, .steps span { display: block; }
-.steps span { color: var(--cp-text-muted); }
 .notice { background: var(--cp-bg-elevated); border-left: 3px solid var(--cp-accent); padding: 24px; margin: 24px 0; }
 .notice p { margin: 8px 0 0; }
 footer { display: flex; gap: 32px; align-items: baseline; border-top: 1px solid var(--cp-border); margin-top: 48px; padding: 24px 0 32px; font-size: .8rem; }
@@ -49,8 +64,8 @@ footer p { max-width: 680px; margin: 0; }
   .app-shell { padding: 0 24px; }
   .site-header { flex-wrap: wrap; gap: 16px; }
   .theme-toggle { margin-left: auto; }
-  nav { order: 3; width: 100%; margin: 0; }
-  nav a { flex: 1; text-align: center; }
+  .site-header nav { order: 3; width: 100%; margin: 0; }
+  .site-header nav a { flex: 1; text-align: center; }
   .hero-card { grid-template-columns: 1fr 1.5fr; }
   .hero-copy { padding: 28px; }
   .hero-art { padding: 24px; }
@@ -59,16 +74,15 @@ footer p { max-width: 680px; margin: 0; }
 @media (max-width: 600px) {
   .app-shell { padding: 0 16px; }
   .site-header { padding: 20px 0; }
-  nav a { padding-inline: 12px; }
+  .site-header nav a { padding-inline: 12px; }
   .hero-card { grid-template-columns: 1fr; }
   .hero-art { min-height: 180px; gap: 12px; }
   .hero-art svg { width: 80px; height: 80px; }
   .hero-copy, .card, .spacious { padding: 24px; }
   .status-bar { align-items: flex-start; }
   .badge { flex-shrink: 0; }
-  .days { gap: 4px; }
-  .days span { width: 30px; height: 30px; }
-  .days small { display: none; }
+  .lesson-outline a { gap: 12px; }
+  .lesson-section .notice { padding: 16px; }
   footer { flex-direction: column; gap: 8px; }
   .button { width: 100%; }
 }

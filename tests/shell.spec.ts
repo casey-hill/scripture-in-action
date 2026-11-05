@@ -9,7 +9,7 @@ test('navigation, browser history, theme and unknown screens', async ({ page }) 
   await page.getByRole('link', { name: 'Progress', exact: true }).click()
   await expect(page.getByText('There is no learning history yet.', { exact: false })).toBeVisible()
   await page.goBack()
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Challenge')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Listen before reacting')
   await page.getByRole('button', { name: 'Switch to dark theme' }).click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await page.goto('./#unknown')
@@ -18,6 +18,7 @@ test('navigation, browser history, theme and unknown screens', async ({ page }) 
 
 test('skip link and tablet/phone layouts', async ({ page }) => {
   await page.goto('./')
+  await expect(page.getByRole('link', { name: 'Skip to content' })).toBeAttached()
   await page.keyboard.press('Tab')
   await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused()
   await page.keyboard.press('Enter')
@@ -32,7 +33,7 @@ test('skip link and tablet/phone layouts', async ({ page }) => {
         .map((element) => `${element.tagName}.${element.className}`),
     }))
     expect(layout.scrollWidth, JSON.stringify(layout)).toBeLessThanOrEqual(width)
-    for (const link of await page.getByRole('navigation').getByRole('link').all()) {
+    for (const link of await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link').all()) {
       const box = await link.boundingBox()
       expect(box?.height).toBeGreaterThanOrEqual(44)
     }
@@ -53,7 +54,7 @@ test('repository-scoped manifest, icons and offline reload', async ({ page, cont
     expect(iconResponse.ok()).toBe(true)
     expect(iconResponse.headers()['content-type']).toContain('image/png')
   }
-  await expect(page.getByRole('status')).toContainText('App shell ready for offline use', { timeout: 20000 })
+  await expect(page.getByRole('status', { name: 'App status' })).toContainText('App shell and lessons ready for offline use', { timeout: 20000 })
   await page.evaluate(async () => { await navigator.serviceWorker.ready })
   await page.reload()
   await page.waitForFunction(() => !!navigator.serviceWorker.controller)
@@ -62,8 +63,8 @@ test('repository-scoped manifest, icons and offline reload', async ({ page, cont
   await context.setOffline(true)
   await page.reload()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText("Today's journey")
-  await expect(page.getByRole('status')).toContainText('Offline')
+  await expect(page.getByRole('status', { name: 'App status' })).toContainText('Offline')
   await page.getByRole('link', { name: 'Challenge', exact: true }).click()
   await page.reload()
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Challenge')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Listen before reacting')
 })
